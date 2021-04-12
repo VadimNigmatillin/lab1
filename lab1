@@ -1,0 +1,32 @@
+double fabsl(double x) {
+    if (x >= 0)
+        return x;
+    else return x * (-1);
+}
+double compute(double a) {
+    double S1 = 0, S2 = 0, n = 0, pi;
+    do {
+        n++;
+        S1 = S2 + 1 / (2 * n - 1);
+        n++;
+        S2 = S1 - 1 / (2 * n - 1);
+    } while (fabsl(S1 - S2) >= a);
+    pi = 2 * (S1 + S2);
+    return pi;
+}
+int main() {
+    double def = 0.1, p;
+    double pi[] = { 3.1863746730, 3.1496570342, 3.1416793452, 3.1415067853, 3.1415976589, 3.1415928687 };
+    int a = 0, b = 6, result;
+    while (a < b) {
+        p = compute(def);
+        if (fabsl(p - pi[a]) < def)
+            result = 0;
+        else result = 1;
+        def/= 10;
+        a++;
+        if (result == 1)
+            break;
+    }
+    return result;
+}
